@@ -1,0 +1,59 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects",
+    "education": "Education",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "scrollDown": "Explore more",
+    "yearsExp": "Years Experience",
+    "projects": "Projects",
+    "companies": "Companies"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Frontend Developer passionate about creating amazing web experiences"
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Technologies and tools I master",
+    "categories": {
+      "framework": "Frameworks",
+      "language": "Languages",
+      "ui": "UI Libraries",
+      "tool": "Tools",
+      "backend": "Backend",
+      "runtime": "Runtime",
+      "methodology": "Methodology"
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "My professional journey",
+    "present": "Present"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Notable projects I've contributed to",
+    "teamSize": "Team size",
+    "technologies": "Technologies",
+    "highlights": "Highlights"
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "Academic background and certifications"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Let's connect",
+    "cta": "Start a conversation"
+  },
+  "footer": {
+    "madeWith": "Made with",
+    "by": "by"
+  }
+}

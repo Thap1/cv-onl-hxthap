@@ -1,0 +1,59 @@
+{
+  "nav": {
+    "about": "Giới thiệu",
+    "skills": "Kỹ năng",
+    "experience": "Kinh nghiệm",
+    "projects": "Dự án",
+    "education": "Học vấn",
+    "contact": "Liên hệ"
+  },
+  "hero": {
+    "greeting": "Xin chào, tôi là",
+    "scrollDown": "Khám phá thêm",
+    "yearsExp": "Năm kinh nghiệm",
+    "projects": "Dự án",
+    "companies": "Công ty"
+  },
+  "about": {
+    "title": "Về tôi",
+    "subtitle": "Frontend Developer với đam mê tạo ra những trải nghiệm web tuyệt vời"
+  },
+  "skills": {
+    "title": "Kỹ năng",
+    "subtitle": "Công nghệ và công cụ tôi thành thạo",
+    "categories": {
+      "framework": "Frameworks",
+      "language": "Ngôn ngữ",
+      "ui": "UI Libraries",
+      "tool": "Công cụ",
+      "backend": "Backend",
+      "runtime": "Runtime",
+      "methodology": "Phương pháp"
+    }
+  },
+  "experience": {
+    "title": "Kinh nghiệm",
+    "subtitle": "Hành trình sự nghiệp của tôi",
+    "present": "Hiện tại"
+  },
+  "projects": {
+    "title": "Dự án",
+    "subtitle": "Các dự án tiêu biểu tôi đã tham gia",
+    "teamSize": "Team size",
+    "technologies": "Công nghệ",
+    "highlights": "Điểm nổi bật"
+  },
+  "education": {
+    "title": "Học vấn",
+    "subtitle": "Nền tảng học vấn và chứng chỉ"
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "subtitle": "Hãy kết nối với tôi",
+    "cta": "Bắt đầu cuộc trò chuyện"
+  },
+  "footer": {
+    "madeWith": "Được tạo với",
+    "by": "bởi"
+  }
+}
