@@ -103,6 +103,60 @@
     color: rgba(30, 41, 59, 0.7) !important;
   }
 
+  /* Force white text variants to be dark in light mode - but not gradient text */
+  .light [class*="text-white"]:not(.text-gradient):not([class*="bg-clip-text"]) {
+    color: #334155 !important;
+  }
+
+  .light [class*="\/60"] {
+    opacity: 1 !important;
+  }
+
+  .light [class*="\/70"] {
+    opacity: 1 !important;
+  }
+
+  .light [class*="\/80"] {
+    opacity: 1 !important;
+  }
+
+  /* Specific light mode text overrides */
+  .light p,
+  .light span,
+  .light div {
+    color: inherit;
+  }
+
+  .light .glass-card,
+  .light .glass-card p,
+  .light .glass-card span,
+  .light .glass-card div {
+    color: #334155;
+  }
+
+  .light .glass-card h1,
+  .light .glass-card h2,
+  .light .glass-card h3 {
+    color: #1e293b;
+  }
+
+  /* Navigation in light mode */
+  .light nav a {
+    color: #334155 !important;
+  }
+
+  .light nav a:hover {
+    color: #0f172a !important;
+  }
+
+  .light nav button {
+    color: #334155 !important;
+  }
+
+  .light .bg-background\/80 {
+    background: rgba(248, 250, 252, 0.9) !important;
+  }
+
   /* Section backgrounds */
   .light section {
     background: transparent;
@@ -143,6 +197,11 @@
 
   .light [class*="border-emerald-500\\/"] {
     border-color: rgba(16, 185, 129, 0.4) !important;
+  }
+
+  /* Primary color - darker in light mode for better contrast */
+  .light .text-primary {
+    color: #1d4ed8 !important;
   }
 
   /* Skill/XP bar backgrounds */
@@ -284,6 +343,13 @@
     text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
   }
 
+  .light .text-gradient {
+    background: linear-gradient(to right, #1d4ed8, #0891b2, #b45309) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+  }
+
   .text-neon {
     text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
   }
@@ -293,6 +359,26 @@
     background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
     border-color: rgba(255,255,255,0.15);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+
+  .light .glass-card {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-color: rgba(59, 130, 246, 0.2) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    color: #334155 !important;
+  }
+
+  .light .glass-card p,
+  .light .glass-card span:not(.text-gradient),
+  .light .glass-card div {
+    color: #475569 !important;
+  }
+
+  .light .glass-card h1,
+  .light .glass-card h2,
+  .light .glass-card h3,
+  .light .glass-card h4 {
+    color: #1e293b !important;
   }
 
   .glass-card:hover {

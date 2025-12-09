@@ -6,10 +6,14 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { cvData } from "@/data/cv-data";
 import { Mail, Github, Linkedin, Send } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { cn } from "@/lib/utils";
 
 export function Contact({ locale }: { locale: string }) {
   const t = useTranslations("contact");
   const tFooter = useTranslations("footer");
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -53,7 +57,7 @@ export function Contact({ locale }: { locale: string }) {
           <h2 className="heading-2 mb-4">
             <span className="text-gradient">{t("title")}</span>
           </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
+          <p className={cn("text-lg max-w-2xl mx-auto", isLight ? "text-slate-700" : "text-white/60")} style={isLight ? { color: '#475569' } : {}}>
             {t("subtitle")}
           </p>
         </motion.div>
@@ -101,7 +105,13 @@ export function Contact({ locale }: { locale: string }) {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.1 }}
                 whileHover={{ scale: 1.2, y: -5 }}
-                className={`p-4 rounded-xl bg-white/5 text-white/60 transition-all duration-300 ${link.color} hover:bg-white/10 hover:glow`}
+                className={cn(
+                  "p-4 rounded-xl transition-all duration-300 hover:glow",
+                  isLight
+                    ? "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    : "bg-white/5 text-white/60 hover:bg-white/10",
+                  link.color
+                )}
               >
                 <link.icon size={24} />
               </motion.a>
@@ -128,7 +138,7 @@ export function Contact({ locale }: { locale: string }) {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.8 }}
-          className="mt-16 text-center text-sm text-white/40"
+          className={cn("mt-16 text-center text-sm", isLight ? "text-slate-500" : "text-white/40")}
         >
           <p>
             {tFooter("madeWith")} ❤️ {tFooter("by")}{" "}

@@ -6,6 +6,7 @@ import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { cvData } from "@/data/cv-data";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const categoryIcons: Record<string, string> = {
   framework: "⚛️",
@@ -64,7 +65,7 @@ function SkillCard({ skill, index, isInView, locale }: SkillCardProps) {
           >
             {categoryIcons[skill.category]}
           </motion.span>
-          <span className="font-semibold text-white">{skill.name}</span>
+          <span className="font-semibold">{skill.name}</span>
         </div>
 
         {/* Level Badge - Game Style */}
@@ -138,6 +139,8 @@ function SkillCard({ skill, index, isInView, locale }: SkillCardProps) {
 
 export function Skills({ locale }: { locale: string }) {
   const t = useTranslations("skills");
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -159,7 +162,7 @@ export function Skills({ locale }: { locale: string }) {
           <h2 className="heading-2 mb-4">
             <span className="text-gradient">{t("title")}</span>
           </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
+          <p className={cn("text-lg max-w-2xl mx-auto", isLight ? "text-slate-700" : "text-white/60")} style={isLight ? { color: '#475569' } : {}}>
             {t("subtitle")}
           </p>
         </motion.div>
@@ -177,7 +180,9 @@ export function Skills({ locale }: { locale: string }) {
               "px-4 py-2 rounded-full text-sm transition-all duration-300",
               selectedCategory === null
                 ? "bg-primary text-white"
-                : "bg-white/5 text-white/60 hover:bg-white/10"
+                : isLight
+                  ? "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  : "bg-white/5 text-white/60 hover:bg-white/10"
             )}
           >
             All
@@ -190,7 +195,9 @@ export function Skills({ locale }: { locale: string }) {
                 "px-4 py-2 rounded-full text-sm transition-all duration-300 flex items-center gap-2",
                 selectedCategory === cat
                   ? "bg-primary text-white"
-                  : "bg-white/5 text-white/60 hover:bg-white/10"
+                  : isLight
+                    ? "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    : "bg-white/5 text-white/60 hover:bg-white/10"
               )}
             >
               <span>{categoryIcons[cat]}</span>

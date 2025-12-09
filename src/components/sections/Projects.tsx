@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { cvData } from "@/data/cv-data";
 import { Users, Calendar, ChevronDown, Rocket, Target, Crown, Sparkles, Code2, Layers, CheckCircle2, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/contexts/ThemeContext";
 
 // Get difficulty based on team size
 function getDifficulty(teamSize: number): { label: string; labelVi: string; color: string; bgColor: string; stars: number } {
@@ -26,9 +27,10 @@ interface ProjectCardProps {
   index: number;
   isInView: boolean;
   locale: string;
+  isLight: boolean;
 }
 
-function ProjectCard({ project, index, isInView, locale }: ProjectCardProps) {
+function ProjectCard({ project, index, isInView, locale, isLight }: ProjectCardProps) {
   const t = useTranslations("projects");
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -152,7 +154,7 @@ function ProjectCard({ project, index, isInView, locale }: ProjectCardProps) {
             </div>
 
             {/* Description */}
-            <p className="text-white/70 text-base leading-relaxed mb-6">
+            <p className={cn("text-base leading-relaxed mb-6", isLight ? "text-slate-700" : "text-white/70")} style={isLight ? { color: '#475569' } : {}}>
               {description}
             </p>
 
@@ -273,7 +275,7 @@ function ProjectCard({ project, index, isInView, locale }: ProjectCardProps) {
                       >
                         ✓
                       </motion.div>
-                      <span className="text-white/80">{item}</span>
+                      <span className={cn(isLight ? "text-slate-700" : "text-white/80")}>{item}</span>
                     </motion.li>
                   ))}
                 </ul>
@@ -288,6 +290,8 @@ function ProjectCard({ project, index, isInView, locale }: ProjectCardProps) {
 
 export function Projects({ locale }: { locale: string }) {
   const t = useTranslations("projects");
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -341,11 +345,16 @@ export function Projects({ locale }: { locale: string }) {
           </motion.div>
 
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+            <span className={cn(
+              "bg-clip-text text-transparent",
+              isLight
+                ? "bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600"
+                : "bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400"
+            )}>
               {t("title")}
             </span>
           </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto mb-10">
+          <p className={cn("text-lg max-w-2xl mx-auto mb-10", isLight ? "text-slate-700" : "text-white/60")} style={isLight ? { color: '#475569' } : {}}>
             {t("subtitle")}
           </p>
 
@@ -392,6 +401,7 @@ export function Projects({ locale }: { locale: string }) {
               index={index}
               isInView={isInView}
               locale={locale}
+              isLight={isLight}
             />
           ))}
         </div>

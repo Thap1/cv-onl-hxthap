@@ -5,9 +5,13 @@ import { useTranslations } from "next-intl";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { cvData } from "@/data/cv-data";
+import { useTheme } from "@/contexts/ThemeContext";
+import { cn } from "@/lib/utils";
 
 export function About({ locale }: { locale: string }) {
   const t = useTranslations("about");
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -25,7 +29,10 @@ export function About({ locale }: { locale: string }) {
           <h2 className="heading-2 mb-4">
             <span className="text-gradient">{t("title")}</span>
           </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
+          <p className={cn(
+            "text-lg max-w-2xl mx-auto",
+            isLight ? "text-slate-700" : "text-white/60"
+          )} style={isLight ? { color: '#475569' } : {}}>
             {t("subtitle")}
           </p>
         </motion.div>
@@ -36,12 +43,18 @@ export function About({ locale }: { locale: string }) {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="glass-card p-8 md:p-12 max-w-4xl mx-auto"
         >
-          <p className="text-lg md:text-xl leading-relaxed text-white/80">
+          <p className={cn(
+            "text-lg md:text-xl leading-relaxed",
+            isLight ? "text-slate-700" : "text-white/80"
+          )}>
             {about}
           </p>
 
           {/* Quick Info */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10 pt-10 border-t border-white/10">
+          <div className={cn(
+            "grid grid-cols-2 md:grid-cols-4 gap-6 mt-10 pt-10 border-t",
+            isLight ? "border-slate-200" : "border-white/10"
+          )}>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -49,7 +62,7 @@ export function About({ locale }: { locale: string }) {
               className="text-center"
             >
               <div className="text-3xl mb-2">📍</div>
-              <div className="text-white/60 text-sm">Vietnam</div>
+              <div className={cn("text-sm", isLight ? "text-slate-600" : "text-white/60")}>Vietnam</div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -58,7 +71,7 @@ export function About({ locale }: { locale: string }) {
               className="text-center"
             >
               <div className="text-3xl mb-2">🎂</div>
-              <div className="text-white/60 text-sm">1996</div>
+              <div className={cn("text-sm", isLight ? "text-slate-600" : "text-white/60")}>1996</div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -67,7 +80,7 @@ export function About({ locale }: { locale: string }) {
               className="text-center"
             >
               <div className="text-3xl mb-2">💼</div>
-              <div className="text-white/60 text-sm">Lead Developer</div>
+              <div className={cn("text-sm", isLight ? "text-slate-600" : "text-white/60")}>Lead Developer</div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -76,7 +89,7 @@ export function About({ locale }: { locale: string }) {
               className="text-center"
             >
               <div className="text-3xl mb-2">🏦</div>
-              <div className="text-white/60 text-sm">FinTech Expert</div>
+              <div className={cn("text-sm", isLight ? "text-slate-600" : "text-white/60")}>FinTech Expert</div>
             </motion.div>
           </div>
         </motion.div>

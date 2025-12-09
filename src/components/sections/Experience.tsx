@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { cvData } from "@/data/cv-data";
 import { Briefcase, Trophy, Star, Zap, Calendar, TrendingUp, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/contexts/ThemeContext";
 
 // Calculate months between dates
 function getMonthsDiff(start: string, end: string | null): number {
@@ -26,6 +27,8 @@ function getYears(months: number): string {
 
 export function Experience({ locale }: { locale: string }) {
   const t = useTranslations("experience");
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -87,11 +90,16 @@ export function Experience({ locale }: { locale: string }) {
           </motion.div>
 
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <span className={cn(
+              "bg-clip-text text-transparent",
+              isLight
+                ? "bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600"
+                : "bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400"
+            )}>
               {t("title")}
             </span>
           </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto mb-10">
+          <p className={cn("text-lg max-w-2xl mx-auto mb-10", isLight ? "text-slate-700" : "text-white/60")} style={isLight ? { color: '#475569' } : {}}>
             {t("subtitle")}
           </p>
 
@@ -198,7 +206,7 @@ export function Experience({ locale }: { locale: string }) {
                         )}
                       </motion.div>
 
-                      <div className="flex items-center gap-2 text-white/60">
+                      <div className={cn("flex items-center gap-2", isLight ? "text-slate-500" : "text-white/60")}>
                         <Calendar size={16} />
                         <span className="font-mono">
                           {formatDate(exp.startDate)} → {formatDate(exp.endDate)}
@@ -246,7 +254,7 @@ export function Experience({ locale }: { locale: string }) {
                         )}>
                           {locale === "vi" ? exp.role.vi : exp.role.en}
                         </p>
-                        <p className="text-white/70 text-lg leading-relaxed">
+                        <p className={cn("text-lg leading-relaxed", isLight ? "text-slate-700" : "text-white/70")} style={isLight ? { color: '#475569' } : {}}>
                           {locale === "vi" ? exp.description.vi : exp.description.en}
                         </p>
                       </div>
@@ -255,7 +263,7 @@ export function Experience({ locale }: { locale: string }) {
                     {/* Progress Bar */}
                     <div className="mt-8 pt-6 border-t border-white/10">
                       <div className="flex items-center justify-between text-sm mb-3">
-                        <span className="text-white/50 flex items-center gap-2">
+                        <span className={cn("flex items-center gap-2", isLight ? "text-slate-600" : "text-white/50")} style={isLight ? { color: '#475569' } : {}}>
                           <TrendingUp size={14} />
                           {locale === "vi" ? "Tiến độ sự nghiệp" : "Career Progress"}
                         </span>

@@ -6,11 +6,15 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { cvData } from "@/data/cv-data";
 import { GraduationCap, Award, BookOpen } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { cn } from "@/lib/utils";
 
 const icons = [GraduationCap, Award, BookOpen];
 
 export function Education({ locale }: { locale: string }) {
   const t = useTranslations("education");
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -26,7 +30,7 @@ export function Education({ locale }: { locale: string }) {
           <h2 className="heading-2 mb-4">
             <span className="text-gradient">{t("title")}</span>
           </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
+          <p className={cn("text-lg max-w-2xl mx-auto", isLight ? "text-slate-700" : "text-white/60")} style={isLight ? { color: '#475569' } : {}}>
             {t("subtitle")}
           </p>
         </motion.div>
@@ -69,7 +73,7 @@ export function Education({ locale }: { locale: string }) {
                 </h3>
 
                 {/* Degree */}
-                <p className="text-sm text-white/60">
+                <p className={cn("text-sm", isLight ? "text-slate-500" : "text-white/60")}>
                   {locale === "vi" ? edu.degree.vi : edu.degree.en}
                 </p>
 
@@ -97,10 +101,10 @@ export function Education({ locale }: { locale: string }) {
             <h3 className="text-lg font-semibold mb-4">🌐 Languages</h3>
             {cvData.languages.map((lang) => (
               <div key={lang.name.en} className="flex items-center justify-between">
-                <span className="text-white/80">
+                <span className={cn(isLight ? "text-slate-700" : "text-white/80")}>
                   {locale === "vi" ? lang.name.vi : lang.name.en}
                 </span>
-                <span className="text-sm text-white/50">
+                <span className={cn("text-sm", isLight ? "text-slate-500" : "text-white/50")}>
                   {locale === "vi" ? lang.level.vi : lang.level.en}
                 </span>
               </div>

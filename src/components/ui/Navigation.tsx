@@ -7,6 +7,7 @@ import { LanguageToggle } from "./LanguageToggle";
 import { ThemeToggleSmall } from "./ThemeToggleSmall";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const navItems = [
   { href: "#about", key: "about" },
@@ -19,6 +20,8 @@ const navItems = [
 
 export function Navigation() {
   const t = useTranslations("nav");
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -38,7 +41,9 @@ export function Navigation() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-background/80 backdrop-blur-lg border-b border-white/10"
+            ? isLight
+              ? "bg-white/90 backdrop-blur-lg border-b border-blue-200/50"
+              : "bg-background/80 backdrop-blur-lg border-b border-white/10"
             : "bg-transparent"
         )}
       >
@@ -59,7 +64,12 @@ export function Navigation() {
                 <motion.a
                   key={item.key}
                   href={item.href}
-                  className="text-sm text-white/70 hover:text-white transition-colors relative group"
+                  className={cn(
+                    "text-sm transition-colors relative group",
+                    isLight
+                      ? "text-slate-600 hover:text-slate-900"
+                      : "text-white/70 hover:text-white"
+                  )}
                   whileHover={{ y: -2 }}
                 >
                   {t(item.key)}
@@ -78,7 +88,12 @@ export function Navigation() {
               <LanguageToggle />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 text-white/70 hover:text-white"
+                className={cn(
+                  "p-2 transition-colors",
+                  isLight
+                    ? "text-slate-600 hover:text-slate-900"
+                    : "text-white/70 hover:text-white"
+                )}
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -94,7 +109,10 @@ export function Navigation() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-lg pt-20 md:hidden"
+            className={cn(
+              "fixed inset-0 z-40 backdrop-blur-lg pt-20 md:hidden",
+              isLight ? "bg-white/95" : "bg-background/95"
+            )}
           >
             <div className="flex flex-col items-center gap-6 p-8">
               {navItems.map((item, index) => (
@@ -105,7 +123,12 @@ export function Navigation() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-xl text-white/70 hover:text-white transition-colors"
+                  className={cn(
+                    "text-xl transition-colors",
+                    isLight
+                      ? "text-slate-600 hover:text-slate-900"
+                      : "text-white/70 hover:text-white"
+                  )}
                 >
                   {t(item.key)}
                 </motion.a>

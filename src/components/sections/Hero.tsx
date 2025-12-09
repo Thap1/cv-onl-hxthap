@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 import dynamic from "next/dynamic";
 import { cvData } from "@/data/cv-data";
+import { useTheme } from "@/contexts/ThemeContext";
+import { cn } from "@/lib/utils";
 
 const FloatingAvatar = dynamic(
   () => import("@/components/3d/FloatingAvatar").then((mod) => mod.FloatingAvatar),
@@ -20,9 +22,10 @@ interface StatCardProps {
   value: number | string;
   label: string;
   delay: number;
+  isLight: boolean;
 }
 
-function StatCard({ value, label, delay }: StatCardProps) {
+function StatCard({ value, label, delay, isLight }: StatCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -31,13 +34,15 @@ function StatCard({ value, label, delay }: StatCardProps) {
       className="glass-card px-6 py-4 text-center"
     >
       <div className="text-3xl md:text-4xl font-bold text-gradient">{value}+</div>
-      <div className="text-sm text-white/60 mt-1">{label}</div>
+      <div className={cn("text-sm mt-1", isLight ? "text-slate-600" : "text-white/60")}>{label}</div>
     </motion.div>
   );
 }
 
 export function Hero({ locale }: { locale: string }) {
   const t = useTranslations("hero");
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const name = locale === "vi" ? cvData.personal.name.vi : cvData.personal.name.en;
   const title = locale === "vi" ? cvData.personal.title.vi : cvData.personal.title.en;
 
@@ -59,7 +64,8 @@ export function Hero({ locale }: { locale: string }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-primary text-lg mb-4"
+              className={cn("text-lg mb-4", isLight ? "text-blue-700" : "text-primary")}
+              style={isLight ? { color: '#1d4ed8' } : {}}
             >
               {t("greeting")}
             </motion.p>
@@ -77,7 +83,8 @@ export function Hero({ locale }: { locale: string }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl md:text-2xl text-white/70 mb-8"
+              className={cn("text-xl md:text-2xl mb-8", isLight ? "text-slate-700" : "text-white/70")}
+              style={isLight ? { color: '#475569' } : {}}
             >
               {title}
             </motion.h2>
@@ -88,16 +95,19 @@ export function Hero({ locale }: { locale: string }) {
                 value={cvData.stats.yearsOfExperience}
                 label={t("yearsExp")}
                 delay={0.3}
+                isLight={isLight}
               />
               <StatCard
                 value={cvData.stats.projectsCompleted}
                 label={t("projects")}
                 delay={0.4}
+                isLight={isLight}
               />
               <StatCard
                 value={cvData.stats.companiesWorked}
                 label={t("companies")}
                 delay={0.5}
+                isLight={isLight}
               />
             </div>
           </div>
@@ -119,7 +129,10 @@ export function Hero({ locale }: { locale: string }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white transition-colors cursor-pointer"
+          className={cn(
+            "absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-colors cursor-pointer",
+            isLight ? "text-slate-500 hover:text-slate-800" : "text-white/50 hover:text-white"
+          )}
         >
           <span className="text-sm">{t("scrollDown")}</span>
           <motion.div
